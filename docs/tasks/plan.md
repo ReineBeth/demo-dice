@@ -2,17 +2,16 @@
 
 ## Vue d’ensemble
 
-Construire une page statique autonome qui présente un dé à 12 faces, affiche la correspondance de symboles fournie et permet de lancer le dé avec une animation CSS. La solution restera limitée à HTML, CSS et JavaScript vanille, sans étape de compilation.
+Construire une page statique autonome qui présente des dés à 12 faces, affiche la correspondance de symboles fournie et permet de lancer chaque groupe avec un résultat immédiat. La solution restera limitée à HTML, CSS et JavaScript vanille, sans étape de compilation.
 
 ## Décisions d’architecture
 
 - La page sera composée de trois fichiers séparés : `index.html`, `styles.css` et `script.js`.
 - La table des faces sera définie une seule fois dans `script.js`; le DOM sera mis à jour depuis cette table.
 - La forme du dé sera construite en CSS comme un pentagone à cinq côtés afin de garder la couleur et les dimensions faciles à modifier.
-- L’animation sera pilotée par une classe CSS ajoutée temporairement par JavaScript.
-- Le bouton sera désactivé durant l’animation et réactivé lorsque le résultat final est affiché.
+- Le bouton de chaque groupe mettra immédiatement à jour uniquement ses propres dés.
 - L’état initial utilisera un dé vide avec un texte accessible indiquant qu’aucun lancer n’a encore été effectué, sauf décision contraire sur les questions ouvertes de la spec.
-- La couleur initiale sera une couleur vive facilement remplaçable dans `--die-color`; la valeur exacte pourra être ajustée lors de la revue visuelle.
+- Chaque groupe sera créé depuis `appConfig.diceGroups` avec son titre, son bouton configurable et sa collection de dés. Chaque dé gardera un identifiant unique, une couleur, un libellé de section et ses propres contrôles; les faces ainsi que la définition du dropdown et du contrôle segmenté resteront communes.
 
 ## Graphe de dépendances
 
@@ -21,11 +20,11 @@ Structure HTML accessible
         │
         ├── Variables et mise en page CSS
         │       │
-        │       └── Animation du dé et états du bouton
+        │       └── Style du dé et états du bouton
         │
         └── Table des faces et logique de rendu JavaScript
                 │
-                └── Interaction de lancer et synchronisation avec l’animation
+                └── Interaction de lancer et mise à jour du log
 ```
 
 ## Liste des tâches
@@ -44,13 +43,13 @@ Structure HTML accessible
 ### Phase 2 : Fonctionnalité principale
 
 - Tâche 3 : ajouter la table des 12 faces et le rendu du résultat
-- Tâche 4 : ajouter le tirage aléatoire, l’animation et le verrouillage du bouton
+- Tâche 4 : ajouter le tirage aléatoire et la mise à jour immédiate du résultat
 
 ### Point de contrôle : Fonctionnalité principale
 
 - Un clic produit une valeur de 1 à 12.
 - Chaque valeur affiche exactement les symboles définis dans la spec.
-- Aucun lancer concurrent ne peut être déclenché pendant l’animation.
+- Chaque bouton agit uniquement sur les dés de son groupe.
 
 ### Phase 3 : Accessibilité et finition
 
@@ -62,7 +61,7 @@ Structure HTML accessible
 
 - Les critères de réussite de `SPEC.md` sont vérifiés.
 - Le parcours clavier et le texte accessible sont cohérents.
-- La couleur du dé peut être modifiée depuis `--die-color`.
+- Un objet ajouté à `appConfig.diceGroups` crée un groupe; un objet ajouté à son tableau `dices` crée un dé supplémentaire dont la couleur est indépendante.
 - Le projet est prêt pour une revue humaine avant commit.
 
 ## Risques et mesures
@@ -70,7 +69,6 @@ Structure HTML accessible
 | Risque | Impact | Mesure |
 |---|---|---|
 | Les faces 2 et 3 sont visuellement vides | La valeur peut sembler absente | Afficher la valeur numérique dans la zone accessible et dans le statut du résultat |
-| L’animation masque le moment où le résultat est final | Compréhension réduite | Conserver un état de lancer court et annoncer le résultat après l’animation |
 | La forme CSS varie selon les dimensions d’écran | Rendu incohérent | Utiliser une taille fluide bornée par `clamp()` et vérifier mobile/desktop |
 | Les caractères symboles ne sont pas rendus de façon uniforme | Aspect variable selon la police | Choisir une pile de polices de secours et vérifier dans un navigateur moderne |
 

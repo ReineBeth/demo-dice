@@ -3,67 +3,44 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Un simulateur de lancer de dé à douze faces.">
-    <title>Simulateur de dé</title>
+    <meta name="description" content="Un simulateur de lancer de dés à douze faces.">
+    <title>Simulateur de dés</title>
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
     <main class="dice-page">
       <section class="dice-panel" aria-labelledby="page-title">
         <p class="eyebrow">Dé à 12 faces</p>
-        <h1 id="page-title">Simulateur de dé</h1>
+        <h1 id="page-title">Simulateur de dés</h1>
         <p class="intro">Lance le dé et découvre le symbole obtenu.</p>
 
-        <section class="maneuver-control" aria-labelledby="maneuver-title">
-          <h2 id="maneuver-title">Manoeuvrabilité</h2>
+        <div class="dice-groups" data-dice-groups></div>
 
-          <label class="rating-field" for="maneuver-rating">
-            Niveau
-            <select id="maneuver-rating" name="maneuver-rating">
-              <option value="-">-</option>
-              <option value="★">★</option>
-              <option value="★★">★★</option>
-              <option value="★★★">★★★</option>
-              <option value="S">S</option>
-            </select>
-          </label>
-
-          <fieldset class="operator-field">
-            <legend>Modification</legend>
-            <div class="segmented-control">
-              <label>
-                <input type="radio" name="maneuver-operator" value="+">
-                <span>+</span>
-              </label>
-              <label>
-                <input type="radio" name="maneuver-operator" value="=" checked>
-                <span>=</span>
-              </label>
-              <label>
-                <input type="radio" name="maneuver-operator" value="-">
-                <span>-</span>
-              </label>
-            </div>
-          </fieldset>
-        </section>
-
-        <div class="dice-stage">
-          <div
-            class="die"
-            id="die"
-            role="img"
-            aria-label="Dé prêt à être lancé"
+        <section class="general-actions" aria-labelledby="general-actions-title">
+          <h2 class="visually-hidden" id="general-actions-title">Actions générales</h2>
+          <button class="general-action-button" id="export-settings" type="button">
+            Exporter les paramètres en CSV
+          </button>
+          <button class="general-action-button" id="import-settings" type="button">
+            Importer un CSV
+          </button>
+          <input
+            class="visually-hidden"
+            id="import-settings-file"
+            type="file"
+            accept=".csv,text/csv"
           >
-            <span class="die-face" id="die-face" aria-hidden="true"></span>
-          </div>
-        </div>
-
-        <p class="result" id="result" aria-live="polite">Aucun lancer pour le moment.</p>
-        <button class="roll-button" id="roll-button" type="button">
-          Lancer le dé
-        </button>
+          <button class="general-action-button" id="save-settings" type="button">
+            Sauvegarder les paramètres
+          </button>
+          <p class="general-actions-status" id="general-actions-status" aria-live="polite"></p>
+        </section>
       </section>
     </main>
+
+    <template id="result-template">
+      <p class="result" aria-live="polite">Aucun lancer pour le moment.</p>
+    </template>
 
     <script src="script.js" defer></script>
   </body>
