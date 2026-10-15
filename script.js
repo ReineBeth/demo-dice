@@ -467,6 +467,19 @@ async function resolveFace(diceState, faceValue, selection) {
 		return;
 	}
 
+	if (selection.level === 'S' && selection.modifier === '+') {
+		const circles = [...dieFace.querySelectorAll('.die-circle')];
+		const fillAnimationSpeed = getAnimationSpeed('fill');
+
+		await Promise.all(
+			circles.map((symbol, index) =>
+				animateCircleToStar(symbol, index, fillAnimationSpeed),
+			),
+		);
+		resolveSpecialFace(diceState);
+		return;
+	}
+
 	if (rawFace === '' && selection.level === 'S') {
 		resolveSpecialFace(diceState);
 		return;

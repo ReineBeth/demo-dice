@@ -101,6 +101,13 @@
   - Dépendances : Tâche 8
   - Taille : S
 
+- [x] Tâche 13 : normaliser les faces avec la combinaison `S` et `+`
+  - Acceptation : toute face autre que `!` devient `★★★` et donne un résultat de `3`; les cercles présents utilisent d’abord leur animation de remplissage.
+  - Vérification : tester les douze faces avec le niveau `S` et le modificateur `+`.
+  - Fichiers : `script.js`
+  - Dépendances : Tâches 8 et 12
+  - Taille : S
+
 ## Point de contrôle : Terminé
 
 - [ ] Tous les critères de réussite de `SPEC.md` sont satisfaits.

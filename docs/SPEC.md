@@ -167,8 +167,9 @@ Un statut accessible indique la réussite ou l’échec de chaque opération. L�
 - Si au moins un cercle reste vide après l’ajout, le résultat vaut `0`.
 - Si tous les cercles sont remplis, le résultat vaut le nombre total d’étoiles visibles.
 - Une face composée uniquement d’étoiles donne toujours son nombre d’étoiles, sans ajout supplémentaire.
-- Sur une face vide, `S` affiche d’abord la lettre `S`, puis la transforme en `★★★` et donne un résultat de `3`.
+- Sur une face vide, `S` affiche directement `★★★`, sans montrer la lettre `S`, et donne un résultat de `3`.
 - Sur toute autre face, `S` fournit trois possibilités de remplissage, comme le niveau `★★★`, et respecte le modificateur `+`, `=` ou `-`.
+- La combinaison niveau `S` et modificateur `+` transforme toute face autre que `!` en `★★★` et donne toujours un résultat de `3`.
 - Lorsque le niveau et le modificateur valent tous les deux `-`, toute face autre que `!` devient vide et donne un résultat de `0`.
 - La face `!` donne toujours `!`, quel que soit le choix du dropdown.
 
